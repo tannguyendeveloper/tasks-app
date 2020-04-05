@@ -14,13 +14,13 @@
           <h1 id="logo">Tasks<span class="tag">a simple to-do app</span>
           </h1>
           <div id="task-menu">
-            <button id="add-task-btn" class="active">Add Task</button>
+            <button id="add-task-btn">Add Task</button>
             <button id="remove-tasks-btn">Clear All Tasks</button>
           </div>
         </div>
         <div id="task-form-panel" class="panel hidden">
           <button class="close-panel-btn">
-            &times;
+            &#11199;
           </button>
           <div id="task-form-wrapper">
             <form id="task-form">
@@ -28,31 +28,36 @@
                 <h2 class="form-title">Add Task</h2>
                 <div class="input-wrapper">
                   <label for="title">Title</label>
-                  <input type="text" name="title" required>
+                  <input type="text" name="title" maxlength="54" required>
                 </div>
                 <div class="input-wrapper">
                   <label for="content">Content</label>
-                  <textarea name="content" required></textarea>
+                  <textarea name="content" required maxlength="256"></textarea>
                 </div>
                 <div class="input-wrapper">
                   <label for="date">Date to be completed</label>
                   <input name="date" type="date" required>
                 </div>
                 <div class="input-wrapper">
-                  <label for="important">
-                    <input name="important" type="checkbox"/> Important
-                  </label>
-                </div>
-                <div class="input-wrapper">
-                  <button type="submit">Add Task</button>
+                  <button id="submit-task-btn" type="submit">Add Task</button>
                 </div>
               </div>
             </form>
           </div>
         </div>
-        <div id="tasks-container" class="panel">
+        <section id="tasks-container-panel" class="panel">
+          <div id="task-legend">
+            <div>
+              <span class="completed">&#11200;</span> Completed Task
+            </div>
+            <div>
+              <span class="incomplete">&#11200;</span> Incompleted Task
+            </div>
+          </div>
+          <div id="tasks-container">
 
-        </div>
+          </div>  
+        </section>
       </div>
     </div>
   </div>
