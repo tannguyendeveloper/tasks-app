@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>To Do App</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+  <div id="task-app">
+    <div class="app-wrapper">
+      <div class="app-container">
+        <div id="task-menu-container">
+          <h1 id="logo">Tasks<span class="tag">a simple to-do app</span>
+          </h1>
+          <div id="task-menu">
+            <button id="add-task-btn" class="active">Add Task</button>
+            <button>Today's Tasks</button>
+            <button>Clear All Tasks</button>
+          </div>
+        </div>
+        <div id="task-form-panel" class="panel hidden">
+          <button class="close-panel-btn">
+            &times;
+          </button>
+          <div id="task-form-wrapper">
+            <form id="task-form">
+              <div id="task-form-container">
+                <h2 class="form-title">Add Task</h2>
+                <div class="input-wrapper">
+                  <label for="title">Title</label>
+                  <input type="text" name="title" required>
+                </div>
+                <div class="input-wrapper">
+                  <label for="content">Content</label>
+                  <textarea name="content" required></textarea>
+                </div>
+                <div class="input-wrapper">
+                  <label for="date">Date to be completed</label>
+                  <input name="date" type="date" required>
+                </div>
+                <div class="input-wrapper">
+                  <label for="important">
+                    <input name="important" type="checkbox"/> Important
+                  </label>
+                </div>
+                <div class="input-wrapper">
+                  <button type="submit">Add Task</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div id="task-container" class="panel">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+
+</html>

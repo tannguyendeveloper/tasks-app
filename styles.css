@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&display=swap');
+
+body {
+  padding: 0 0;
+  margin: 0 0;
+}
+
+.app-container {
+  display: flex;
+  justify-items: stretch;
+  height: calc(100%);
+  min-height: 100vh;
+}
+
+#task-app {
+  background-color: #e7edf3;
+}
+
+#task-menu-container {
+  background-color: #0592bb;
+  padding: .5em 1.5em;
+  box-sizing: border-box;
+  z-index: 999999;
+  min-width: 20%;
+}
+
+#task-menu {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  margin: 2em 0;
+}
+
+#task-menu button {
+  font-family: 'Barlow', sans-serif;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  margin: .25em 0;
+  color: rgba(255,255,255,.35);
+  text-align: right;
+  font-size: 1.05em;
+  padding: .5em .25em;
+}
+
+#task-menu button.active {
+  color: rgba(255,255,255,.75);
+  cursor: pointer;
+}
+
+
+#task-menu button.active:hover {
+  color: rgba(255,255,255,.75);
+  box-shadow: 0 4px 10px -10px rgba(0,0,0,.75);
+  text-shadow: 1px 1px 3px rgba(0,0,0,.25);
+}
+
+#task-menu button.active:hover {
+  color: #e5d62c;
+  box-shadow: 0 4px 10px -10px rgba(0,0,0,.75);
+}
+
+.panel {
+  position: relative;
+  padding: .5em 2.5em .5em 1.5em;
+}
+
+#task-form-panel {
+  background-color: #d5e1ec;
+  display: flex;
+}
+
+#task-container {
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.task-wrapper {
+  width: 46%;
+  margin: 2%;
+}
+
+.task-wrapper .task-container{
+  background-color: #ffffff;
+  padding: 1em;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#task-form-panel.hidden {
+  display: none;
+}
+
+#task-form-wrapper {
+  display: flex;
+}
+
+button.close-panel-btn {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  outline: 0;
+  border: 0;
+  background-color: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+#logo {
+  font-family: 'Raleway', sans-serif;
+  color: #e5d62c;
+  font-weight: 600;
+  text-align: right;
+  font-size: 2.25em;
+  line-height: 1em
+}
+
+#logo .tag {
+  display: block;
+  font-weight: 300;
+  font-size: .85rem;
+  line-height: .75em;
+  color: #ffffff;
+}
+
+h2.form-title {
+  font-family: 'Raleway', sans-serif;
+  color: #7f92a5;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+#task-form .input-wrapper {
+  margin: .5em 0;
+}
+
+#task-form .input-wrapper label {
+  font-family: 'Barlow', sans-serif;
+  color: #164173;
+  font-size: .85em;
+  margin: .25em 0;
+  display: block;
+}
+
+#task-form input:not([type="checkbox"]) {
+  padding: .5em;
+  width: 100%;
+  min-width: 200px;
+  font-family: 'Barlow', sans-serif;
+  border: 0;
+}
+
+#task-form textarea {
+  padding: .5em;
+  width: 100%;
+  min-width: 200px;
+  font-family: 'Barlow', sans-serif;
+  border: 0;
+}
