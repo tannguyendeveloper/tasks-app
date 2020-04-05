@@ -38,25 +38,13 @@ body {
   border: 0;
   outline: 0;
   margin: .25em 0;
-  color: rgba(255,255,255,.35);
+  color: rgba(255,255,255,.75);
   text-align: right;
   font-size: 1.05em;
   padding: .5em .25em;
 }
 
-#task-menu button.active {
-  color: rgba(255,255,255,.75);
-  cursor: pointer;
-}
-
-
-#task-menu button.active:hover {
-  color: rgba(255,255,255,.75);
-  box-shadow: 0 4px 10px -10px rgba(0,0,0,.75);
-  text-shadow: 1px 1px 3px rgba(0,0,0,.25);
-}
-
-#task-menu button.active:hover {
+#task-menu button:hover {
   color: #e5d62c;
   box-shadow: 0 4px 10px -10px rgba(0,0,0,.75);
 }
@@ -93,7 +81,7 @@ body {
 }
 
 
-#task-container {
+#tasks-container {
   display: flex;
   align-items: flex-start;
   align-content: flex-start;
@@ -107,27 +95,80 @@ body {
   margin: 2%;
 }
 
-.task-wrapper .task-container{
+
+
+.task-wrapper .task-container {
+  position: relative;
   background-color: #ffffff;
   padding: 1em;
   box-sizing: border-box;
   width: 100%;
 }
 
-#task-form-wrapper {
-  display: flex;
+.task-wrapper .task-container:after {
+  content: '';
+  display: block;
+  clear: both;
 }
 
-button.close-panel-btn {
+
+.task-container h2{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  color: #59bedb;
+  margin: 0 0;
+}
+
+.task-wrapper .task-container p {
+  font-family: 'Barlow', sans-serif;
+}
+
+.task-wrapper .task-container p:last-of-type {
+  margin-bottom: 0;
+}
+.task-wrapper.fade-out {
+  opacity: 0;
+  transition-duration: 250ms;
+}
+
+.task-wrapper .task-container .remove-btn, button.close-panel-btn{
   position: absolute;
-  display: block;
   top: 0;
   right: 0;
   outline: 0;
   border: 0;
   background-color: transparent;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   cursor: pointer;
+  color: #999999;
+}
+
+.mark-completed-btn {
+  outline: 0;
+  border: 0;
+  background-color: transparent;
+  font-size: .75rem;
+  cursor: pointer;
+  color: #ffffff;
+  margin: .25em auto;
+  background-color: rgba(0,0,0,.25);
+  transition-duration: 250ms;
+  margin-top: 1em;
+  padding: .25em 1em;
+  border-radius: 1em;
+  float: right;
+}
+
+.mark-completed-btn:hover {
+  background-color: rgba(230,152,44,1);
+}
+
+.task-wrapper .task-container .remove-btn:hover, button.close-panel-btn:hover {
+  color: #333333;
+}
+
+#task-form-wrapper {
+  display: flex;
 }
 
 #logo {

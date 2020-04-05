@@ -21,12 +21,11 @@ class TasksApp {
 
   renderTasks() {
     this.tasks = this.getTasks();
-    const tasksContainer = document.querySelector('#task-container');
+    const tasksContainer = document.querySelector('#tasks-container');
     tasksContainer.innerHTML = ''
     if(Object.keys(this.tasks).length) {
       for(let task in this.tasks) {
-        console.log(task)
-        tasksContainer.append(this.taskComponent(task));
+        tasksContainer.append(this.taskComponent(this.tasks[task]));
       }
     } else {
       console.log('Has no tasks')
@@ -34,6 +33,7 @@ class TasksApp {
   }
 
   taskComponent(task) {
+    const _this = this;
     let taskComponent = document.createElement('div');
     taskComponent.id = `task-${task.id}`;
     taskComponent.setAttribute('data-id', task.id)
@@ -54,10 +54,23 @@ class TasksApp {
     let removeBtn = document.createElement('button');
     removeBtn.setAttribute('data-id', task.id);
     removeBtn.classList.add('remove-btn');
-    removeBtn.innerHTML = '&times;'
+    removeBtn.title = 'Remove';
+    removeBtn.innerHTML = '&times;';
+    removeBtn.addEventListener('click', function(e) {
+      _this.removeTask(e)
+    })
 
-    taskContainer.append(taskTitle, taskContent, taskDate)
-    taskComponent.append(taskContainer)
+    let markCompletedBtn = document.createElement('button');
+    markCompletedBtn.setAttribute('data-id', task.id);
+    markCompletedBtn.classList.add('mark-completed-btn');
+    markCompletedBtn.title = 'Mark Completed';
+    markCompletedBtn.innerHTML = '&check; Completed';
+    markCompletedBtn.addEventListener('click', function(e) {
+      // _this.removeTask(e)
+    })
+
+    taskContainer.append(taskTitle, taskContent, taskDate, markCompletedBtn, removeBtn)
+    taskComponent.append(taskContainer);
 
     // this.animations.fadeIn(taskComponent);
     return taskComponent;
@@ -70,14 +83,28 @@ class TasksApp {
   }
 
   addTask(values) {
-    const tasksContainer = document.querySelector('#task-container');
+    const tasksContainer = document.querySelector('#tasks-container');
     this.tasks[values.id] = values;
-    tasksContainer.append(this.taskComponent(task));
+    tasksContainer.append(this.taskComponent(values));
+    this.saveTasks(this.tasks);
+    this.clearFormInputs();
+  }
+
+  removeTask(e) {
+    const id = e.target.dataset.id;
+    const taskComponent = document.querySelector(`#task-${id}`);
+    delete this.tasks[id];
+    this.transitions.fadeOut(taskComponent);
     this.saveTasks(this.tasks);
   }
 
-  removeTask() {
-
+  removeTasks() {
+    const tasks = document.querySelectorAll(`.task-wrapper`);
+    for(let task of tasks) {
+      this.transitions.fadeOut(task);
+    }
+    this.tasks = {}
+    localStorage.setItem('tasks', JSON.stringify(this.tasks))
   }
 
   handleFormSubmit(e) {
@@ -106,7 +133,16 @@ class TasksApp {
   }
 
   clearFormInputs() {
+    const inputs = document.querySelectorAll('#task-form input');
+    for(let input of inputs) {
+      input.value = '';
+    }
+    
+    const checkbox = document.querySelector('#task-form input[type="checkbox"]');
+    checkbox.removeAttribute('checked');
 
+    const textarea = document.querySelector('#task-form textarea');
+    textarea.value = '';
   }
 
   initForm() {
@@ -120,6 +156,7 @@ class TasksApp {
 
   initUI() {
     this.initAddTaskBtn();
+    this.initRemoveAllTasksBtn();
     this.initClosePanelBtn();
   }
 
@@ -133,6 +170,15 @@ class TasksApp {
       // if(panelsAreClosed) _this.transitions.slideIn(addTaskBtn);
     })
   }
+
+  initRemoveAllTasksBtn() {
+    const _this = this;
+    const addTaskBtn =  document.querySelector('#remove-tasks-btn');
+    addTaskBtn.addEventListener('click', async function() {
+      _this.removeTasks();
+    })
+  }
+
 
   initClosePanelBtn() {
     const _this = this;
@@ -162,8 +208,12 @@ class TasksApp {
   }
 
   transitions = {
-    fadeOut: () => {
-
+    fadeOut: async (el) => {
+      el.classList.add('fade-out');
+      const animation = setInterval(function() {
+        el.remove();
+        return true;
+      }, 250);
     },
     fadeIn: () => {
 
