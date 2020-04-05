@@ -26,7 +26,7 @@ class TasksApp {
     if(Object.keys(this.tasks).length) {
       for(let task in this.tasks) {
         console.log(task)
-        tasksContainer.append(this.taskComponent(this.tasks[task]));
+        tasksContainer.append(this.taskComponent(task));
       }
     } else {
       console.log('Has no tasks')
@@ -128,7 +128,7 @@ class TasksApp {
     const addTaskBtn =  document.querySelector('#add-task-btn');
     addTaskBtn.addEventListener('click', async function() {
       const taskFormPanel = document.querySelector('#task-form-panel');
-      taskFormPanel.classList.remove('hidden');
+      let isPanelOpen = await _this.transitions.slideOut(taskFormPanel);
       // const panelsAreClosed =_this.closeAllPanels();
       // if(panelsAreClosed) _this.transitions.slideIn(addTaskBtn);
     })
@@ -140,8 +140,9 @@ class TasksApp {
     for(let btn of btns) {
       btn.addEventListener('click', function(e) {
         const panel = e.target.parentElement;
-        panel.classList.add('hidden');
         _this.clearFormInputs();
+        // slide out
+        _this.transitions.slideIn(panel);
       })
     }
   }
@@ -160,4 +161,34 @@ class TasksApp {
     let openPanel = document.querySelectorAll(`.panel.open`);    
   }
 
+  transitions = {
+    fadeOut: () => {
+
+    },
+    fadeIn: () => {
+
+    },
+    slideOut: async (el) => {
+      el.classList.add('slide-out')
+      el.classList.remove('hidden');
+      const animation = setInterval(function() {
+        el.classList.remove('slide-in');
+        clearInterval(animation);
+        return true;
+      },
+      250)
+    },
+    slideIn: async (el) => {
+      el.classList.add('slide-in');
+      el.classList.remove('slide-out');
+      const animation = setInterval(function() {
+        console.log('adding hidden');
+        el.classList.add('hidden');
+        clearInterval(animation);
+        return true;
+      },
+      250)
+    }
+
+  }
 }

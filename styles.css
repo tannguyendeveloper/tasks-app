@@ -63,13 +63,35 @@ body {
 
 .panel {
   position: relative;
+  transition-duration: 250ms;
   padding: .5em 2.5em .5em 1.5em;
 }
 
 #task-form-panel {
   background-color: #d5e1ec;
   display: flex;
+  transform: translateX(-100%);
 }
+
+#task-form-panel.hidden {
+  width: 0;
+  padding: 0 0;
+  visibility: hidden;
+}
+
+#task-form-panel.hidden * {
+  opacity: 0;
+}
+
+#task-form-panel.slide-in {
+  transform: translateX(-100%);
+  padding: inherit 0;
+}
+
+#task-form-panel.slide-out {
+  transform: translateX(0);
+}
+
 
 #task-container {
   display: flex;
@@ -90,10 +112,6 @@ body {
   padding: 1em;
   box-sizing: border-box;
   width: 100%;
-}
-
-#task-form-panel.hidden {
-  display: none;
 }
 
 #task-form-wrapper {
