@@ -8,14 +8,12 @@ class TasksApp {
   }
 
   init() {
-    console.log('initializing app');
     this.renderTasks();
     this.initForm();
     this.initUI();
   }
 
   getTasks() {
-    console.log('getting tasks');
     return localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')) : {};
   }
 
@@ -33,6 +31,7 @@ class TasksApp {
   }
 
   taskComponent(task) {
+    console.log(task);
     const _this = this;
     let taskComponent = document.createElement('div');
     taskComponent.id = `task-${task.id}`;
@@ -55,42 +54,19 @@ class TasksApp {
     dateContainer.classList.add('date-container');
 
     if(task.completed) {
-      let completedDate = document.createElement('span');
-      completedDate.classList.add('completed-date');
-      let dateObj = new Date(task.completed);
-      let date = `${dateObj.getMonth() +1}/${dateObj.getDate()}/${dateObj.getFullYear()}`
-      completedDate.innerHTML = `<span class="check-completed">&check;</span> Completed: ${date}`;
+      let completedDate = this.completedDate(task.completed);
       dateContainer.append(completedDate);
     }
 
-    let taskDate = document.createElement('span');
-    taskDate.classList.add('target-date');
-    let dateObj = new Date(task.date);
-    let date = `${dateObj.getMonth() +1}/${dateObj.getDate()}/${dateObj.getFullYear()}`
-    taskDate.innerHTML = `Target: ${date}`;
+    let taskDate = this.taskDate(task.date);
     dateContainer.append(taskDate);
 
     let btnContainer = document.createElement('div');
     btnContainer.classList.add('btn-container');
 
-    let removeBtn = document.createElement('button');
-    removeBtn.setAttribute('data-id', task.id);
-    removeBtn.classList.add('remove-btn');
-    removeBtn.title = 'Remove';
-    removeBtn.innerHTML = '&#x1f5d1; Remove';
-    removeBtn.addEventListener('click', function(e) {
-      _this.removeTask(e)
-    })
+    let removeBtn = this.removeTaskBtn(task);
 
-    let markCompletedBtn = document.createElement('button');
-    markCompletedBtn.setAttribute('data-id', task.id);
-    markCompletedBtn.classList.add('mark-completed-btn');
-    markCompletedBtn.title = 'Mark Completed';
-    markCompletedBtn.innerHTML = '&check; Completed';
-    if(!!task.completed) markCompletedBtn.setAttribute('disabled', true);
-    markCompletedBtn.addEventListener('click', function(e) {
-      _this.markAsCompleted(e);
-    })
+    let markCompletedBtn = this.markCompletedBtn(task);
 
     btnContainer.append(removeBtn, markCompletedBtn);
 
@@ -101,14 +77,53 @@ class TasksApp {
     return taskComponent;
   }
 
-  markAsCompleted(e) {
-    const id = e.target.dataset.id;
-    e.target.setAttribute('disabled', true);
-    
+  completedDate(dateInSeconds) {
+    let completedDate = document.createElement('span');
+    completedDate.classList.add('completed-date');
+    let dateObj = new Date(dateInSeconds);
+    let date = `${dateObj.getMonth() +1}/${dateObj.getDate()}/${dateObj.getFullYear()}`
+    completedDate.innerHTML = `<span class="check-completed"><span>&check;</span></span> Completed On: ${date}`;
+    return completedDate;
+  }
+
+  taskDate(dateInSeconds) {
+    let taskDate = document.createElement('span');
+    taskDate.classList.add('target-date');
+    let dateObj = new Date(dateInSeconds);
+    let date = `${dateObj.getMonth() +1}/${dateObj.getDate()}/${dateObj.getFullYear()}`
+    taskDate.innerHTML = `Complete By: ${date}`;
+    return taskDate;
+  }
+
+  markCompletedBtn(task) {
+    const _this = this;
+    const markCompletedBtn =document.createElement('button');
+    markCompletedBtn.setAttribute('data-id', task.id);
+    markCompletedBtn.classList.add('mark-completed-btn');
+    markCompletedBtn.title = 'Mark Completed';
+    markCompletedBtn.innerHTML = '&check; Completed';
+    if(!!task.completed) markCompletedBtn.setAttribute('disabled', true);
+    markCompletedBtn.addEventListener('click', function(e) {
+      _this.markAsCompleted(task);
+    });
+    return markCompletedBtn;
+  }
+
+  markAsCompleted(task) {
+    const id = task.id;
+    const markCompletedBtn = document.querySelector(`.mark-completed-btn[data-id="${id}"]`);
+    markCompletedBtn.setAttribute('disabled',true);
+
+    let dateContainer = document.querySelector(`.task-wrapper[data-id="${id}"] .date-container`);
+
     const wrapper = document.querySelector(`.task-wrapper[data-id="${id}"]`);
-    wrapper.classList.toggle('completed');
-    const date = new Date();
+    wrapper.classList.add('completed');
+
     this.tasks[id].completed = Date.now();
+
+    let completedDate = this.completedDate(this.tasks[id].completed);
+    dateContainer.prepend(completedDate);
+
     localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
@@ -124,6 +139,19 @@ class TasksApp {
     tasksContainer.append(this.taskComponent(values));
     this.saveTasks(this.tasks);
     this.clearFormInputs();
+  }
+
+  removeTaskBtn(task) {
+    const _this = this;
+    let removeTaskBtn = document.createElement('button');
+    removeTaskBtn.setAttribute('data-id', task.id);
+    removeTaskBtn.classList.add('remove-btn');
+    removeTaskBtn.title = 'Remove';
+    removeTaskBtn.innerHTML = '&#x1f5d1; Remove';
+    removeTaskBtn.addEventListener('click', function(e) {
+      _this.removeTask(e)
+    })
+    return removeTaskBtn;
   }
 
   removeTask(e) {
@@ -222,20 +250,6 @@ class TasksApp {
         _this.transitions.slideIn(panel);
       })
     }
-  }
-
-
-  openPanel() {
-
-  }
-
-  closePanel() {
-
-  }
-
-  async closeAllPanels() {
-    console.log('closing all open panels');
-    let openPanel = document.querySelectorAll(`.panel.open`);    
   }
 
   transitions = {

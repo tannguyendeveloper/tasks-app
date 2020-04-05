@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&display=swap');
 
 body {
@@ -156,8 +156,29 @@ body {
   font-size: .75em;
 }
 
+.task-wrapper .task-container .date-container * {
+  vertical-align: middle;
+}
+
 .task-wrapper .task-container .date-container span.check-completed {
-  color: #36c186;
+  color: #ffffff;
+  background-color: #36c186;
+  display: inline-block;
+  border-radius: 1em;
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  padding: .125em;
+  position: relative;
+  line-height: 1em;
+  font-weight: bold;
+}
+
+.task-wrapper .task-container .date-container span.check-completed * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .task-wrapper .task-container p:last-of-type {
