@@ -118,10 +118,10 @@ class TasksApp {
 
     const wrapper = document.querySelector(`.task-wrapper[data-id="${id}"]`);
     wrapper.classList.add('completed');
-    wrapper.classList.remove('');
+    wrapper.classList.remove('overdue');
 
     this.tasks[id].completed = Date.now();
-
+    console.log(this.tasks[id].completed);
     let completedDate = this.completedDate(this.tasks[id].completed);
     dateContainer.prepend(completedDate);
 
