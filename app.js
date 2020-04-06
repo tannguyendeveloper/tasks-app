@@ -32,7 +32,6 @@ class TasksApp {
   taskComponent(task) {
     const _this = this;
     let taskComponent = document.createElement('div');
-    console.log(task);
     taskComponent.id = `task-${task.id}`;
     taskComponent.setAttribute('data-id', task.id)
     taskComponent.classList.add('task-wrapper');
@@ -119,6 +118,7 @@ class TasksApp {
 
     const wrapper = document.querySelector(`.task-wrapper[data-id="${id}"]`);
     wrapper.classList.add('completed');
+    wrapper.classList.remove('');
 
     this.tasks[id].completed = Date.now();
 
@@ -326,7 +326,6 @@ class TasksApp {
     }
     return comparison;
   }
-
 
   initClosePanelBtn() {
     const _this = this;
