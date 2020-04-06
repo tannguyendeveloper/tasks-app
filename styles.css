@@ -142,6 +142,10 @@ body {
   color: #36c186;
 }
 
+.task-wrapper.overdue h2 {
+  color: #e6982c;
+}
+
 
 .task-wrapper .task-container p {
   font-family: 'Barlow', sans-serif;
@@ -320,10 +324,10 @@ h2.form-title {
   margin-bottom: 0;
 }
 
-#task-legend {
-  width: 100;
+#task-legend, #task-filter-container {
+  width: 100%;
   display: flex;
-  margin-bottom: 1em;
+  margin-bottom: .5em;
 }
 
 #task-legend span.completed {
@@ -333,6 +337,12 @@ h2.form-title {
 #task-legend span.incomplete {
   color: #98a9ba;
 }
+
+#task-legend span.overdue {
+  color: #e6982c;
+}
+
+
 #task-legend > div {
   font-family: 'Barlow', sans-serif;
   font-size: .8em;
@@ -345,6 +355,30 @@ h2.form-title {
 
 #task-legend > div:last-of-type {
   margin-right: 0;
+}
+
+#task-filter-container {
+  font-family: 'Barlow', sans-serif;
+  font-size: .8em;
+  margin-bottom: 2em;
+  background-color: #d5e1ec;
+  padding: .5em;
+}
+
+#task-filter-container label {
+  width: 100%;
+}
+
+#task-filter-container select {
+  padding: .5em;
+  width: 100%;
+  min-width: 200px;
+  font-family: 'Barlow', sans-serif;
+  box-sizing: border-box;
+  display: inline-block;
+  border:0px;
+  outline:0px;
+  scroll-behavior: smooth;
 }
 
 .btn-container {
