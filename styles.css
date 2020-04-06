@@ -114,6 +114,7 @@ body {
   margin-bottom: 1em;
   transition-duration: 250ms;
   background-color: #ffffff;
+  opacity: 0;
 }
 
 .task-wrapper .task-container {
@@ -193,7 +194,10 @@ body {
   opacity: 0;
   transition-duration: 250ms;
 }
-
+.task-wrapper.fade-in {
+  opacity: 1;
+  transition-duration: 250ms;
+}
 button.close-panel-btn {
   position: absolute;
   top: 0;

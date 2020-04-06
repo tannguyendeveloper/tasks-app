@@ -24,7 +24,9 @@ class TasksApp {
     tasksContainer.innerHTML = ''
     if(Object.keys(this.tasks).length) {
       for(let task in this.tasks) {
-        tasksContainer.append(this.taskComponent(this.tasks[task]));
+        const taskComponent = this.taskComponent(this.tasks[task])
+        tasksContainer.append(taskComponent);
+        this.transitions.fadeIn(taskComponent);
       }
     }
   }
@@ -73,7 +75,6 @@ class TasksApp {
     taskContainer.append(taskTitle, dateContainer, taskContent, btnContainer)
     taskComponent.append(taskContainer);
 
-    // this.animations.fadeIn(taskComponent);
     return taskComponent;
   }
 
@@ -136,8 +137,11 @@ class TasksApp {
 
   addTask(values) {
     const tasksContainer = document.querySelector('#tasks-container');
+    const taskComponent = this.taskComponent(values)
     this.tasks[values.id] = values;
-    tasksContainer.append(this.taskComponent(values));
+    tasksContainer.append(taskComponent);
+    taskComponent.scrollIntoView();
+    this.transitions.fadeIn(taskComponent);
     this.saveTasks(this.tasks);
     this.clearFormInputs();
   }
@@ -296,7 +300,9 @@ class TasksApp {
     tasksContainer.innerHTML = ''
     if(tasks.length) {
       for(let task of tasks) {
-        tasksContainer.append(this.taskComponent(task));
+        let taskComponent = this.taskComponent(task);
+        tasksContainer.append(taskComponent);
+        this.transitions.fadeIn(taskComponent);
       }
     }
   }
@@ -345,11 +351,15 @@ class TasksApp {
       el.classList.add('fade-out');
       const animation = setInterval(function() {
         el.remove();
+        clearInterval(animation)
         return true;
       }, 250);
     },
-    fadeIn: () => {
-
+    fadeIn: (el) => {
+      el.classList.add('fade-in');
+      const animation = setInterval(function() {
+        clearInterval(animation)
+      }, 250);
     },
     slideOut: async (el) => {
       el.classList.add('slide-out')
